@@ -1,3 +1,48 @@
 .fa-leaf {
     color: green;
 }
+
+.color-primary {
+    background-color: rgb(103,58,183);
+}
+
+.color-primary--dark {
+    background-color: rgb(81,45,168);  
+}
+
+.color-secondary {
+    background-color: rgb(255,64,129);
+}
+  
+footer.page-footer {
+    padding: 16px 40px;
+    color: #9e9e9e;
+    background-color: #424242;
+}
+
+nav {
+    height: 180px;  
+}
+
+nav .brand-logo {
+    padding: 50px;
+}
+
+.tab-bar {
+    height: 53px;
+}
+
+.layout__tab {
+    height: 64px;
+    line-height: 64px;
+    margin: 25px;
+    font-size: 13px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.layout__tab.is-active {
+    border-bottom: 5px solid;
+    padding-bottom: 21px;
+    width: 100%;
+}
