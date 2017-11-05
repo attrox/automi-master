@@ -1,7 +1,7 @@
 App = {
   web3Provider: null,
   contracts: {},
-  stemAddress: '0x271154C14d3d9dA5c6d5a694c1268922908CB52A',
+  stemAddress: '0x353f7826be42a96292eee2b99c006a6c99364794',
 
   init: function() {
     return App.initWeb3();
@@ -22,7 +22,7 @@ App = {
   },
 
   initContract: function() {
-    $.getJSON('LiefToken.json', function(data) {
+    $.getJSON('AutomiDemo.json', function(data) {
       // Get the necessary contract artifact file and instantiate it with truffle-contract.
       var TutorialTokenArtifact = data;
       App.contracts.TutorialToken = TruffleContract(TutorialTokenArtifact);
@@ -52,10 +52,20 @@ App = {
         tutorialTokenInstance = instance;
 
         console.log('Transferring 1 Lief Token from ' + account + ' to stem ID: ' + stemId + '(' + toAddress + ')');
-        return tutorialTokenInstance.transfer(toAddress, amount, {from: account});
+        //return tutorialTokenInstance.transfer(toAddress, amount, {from: account});
+
+        //return tutorialTokenInstance.createStem("rchain", "RChain");
+        //return tutorialTokenInstance.createStem("goatse", "Goatse");
+        //return tutorialTokenInstance.createStem("basicattention", "Basic Attention");
+        return tutorialTokenInstance.stakeLief(stemId, 1);
+        
       }).then(function(result) {
         alert('Transfer Successful!');
-        return App.getBalances();
+        App.getBalances();
+        setTimeout(function() {
+          window.location.reload();
+        }, 500);
+        return true;
       }).catch(function(err) {
         console.log(err.message);
       });
@@ -111,8 +121,21 @@ App = {
       App.contracts.TutorialToken.deployed().then(function(instance) {
         tutorialTokenInstance = instance;
 
+        tutorialTokenInstance.stems(1).then(function(data) {
+          $('#data1').text(data[4].c[0]);
+        });
+
+        tutorialTokenInstance.stems(2).then(function(data) {
+          $('#data2').text(data[4].c[0]);
+        });
+
+        tutorialTokenInstance.stems(3).then(function(data) {
+          $('#data3').text(data[4].c[0]);
+        });
+
         return tutorialTokenInstance.balanceOf(account);
       }).then(function(result) {
+        console.log(result);
         balance = result.c[0];
 
         $('#myBalance').text(balance);
@@ -120,8 +143,7 @@ App = {
         console.log(err.message);
       });
     });
-  }
-
+  },
 };
 
 $(function() {
